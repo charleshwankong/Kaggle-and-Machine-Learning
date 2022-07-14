@@ -1,9 +1,3 @@
-```mermaid
-flowchart LR
-```
-
-
-
 # Project 4 Readme
 >A weakly consistent distributed file system.
 > File system operations are based on synchronous gRPC (remote procedure call) routines, while file system synchronization is periodically performed as an asynchronous gRPC routine. 
@@ -50,7 +44,6 @@ List_server_stub:::__server
 Delete_server_stub:::__server
 Stat_server_stub:::__server
 end
-```
 
 subgraph client stubs
    subgraph c1[Fetch]
@@ -80,7 +73,7 @@ Stat2_client_stub -- calls for lock --> Stat_server_stub
 c2 -- calls --> Store_server_stub
 c1 -- calls --> Fetch_server_stub
 c3 -- calls --> Store_server_stub
-
+```
 List_client_stub -- calls --> List_server_stub
 Stat_client_stub -- calls for info --> Stat_server_stub
 
