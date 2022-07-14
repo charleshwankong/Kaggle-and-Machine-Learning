@@ -62,7 +62,7 @@ subgraph client stubs
    Stat_client_stub:::__client
    Stat2_client_stub:::__client
 end
-
+```
 
 
 
@@ -73,7 +73,7 @@ Stat2_client_stub -- calls for lock --> Stat_server_stub
 c2 -- calls --> Store_server_stub
 c1 -- calls --> Fetch_server_stub
 c3 -- calls --> Store_server_stub
-```
+
 List_client_stub -- calls --> List_server_stub
 Stat_client_stub -- calls for info --> Stat_server_stub
 
