@@ -63,10 +63,10 @@ subgraph client stubs
    Stat2_client_stub:::__client
 end
 
+%%Store_client_stub --> Stat2_client_stub
 
-%%Store_client_stub -- first calls --> Stat2_client_stub
 ```
-
+%%Store_client_stub -- first calls --> Stat2_client_stub
 %%Fetch_client_stub -- first calls --> Stat2_client_stub
 %%Delete_client_stub -- first calls --> Stat2_client_stub
 Stat2_client_stub -- calls for lock --> Stat_server_stub
