@@ -205,38 +205,38 @@ participant client stubs;
 participant server stubs;
 participant file lock manager;
 participant ProcessQueuedRequests();
-client stubs ->> server stubs : store file1
+client stubs -\>\> server stubs : store file1
 
-server stubs ->> file lock manager : *lock file1
-server stubs -->> ProcessQueuedRequests() : *signal changes made
-client stubs ->> server stubs : delete file2
-server stubs ->> file lock manager : *lock file2
-server stubs -->> ProcessQueuedRequests() : *signal changes made
-ProcessQueuedRequests() -->> ProcessQueuedRequests() : wake up and *check if it should drain
+server stubs -\>\> file lock manager : *lock file1
+server stubs --\>\> ProcessQueuedRequests() : *signal changes made
+client stubs -\>\> server stubs : delete file2
+server stubs -\>\> file lock manager : *lock file2
+server stubs --\>\> ProcessQueuedRequests() : *signal changes made
+ProcessQueuedRequests() --\>\> ProcessQueuedRequests() : wake up and *check if it should drain
 opt
-ProcessQueuedRequests() -->> server stubs : *let other threads know it needs to drain
+ProcessQueuedRequests() --\>\> server stubs : *let other threads know it needs to drain
 end;
 opt
-ProcessQueuedRequests() -->> ProcessQueuedRequests() : resume sleep
+ProcessQueuedRequests() --\>\> ProcessQueuedRequests() : resume sleep
 end;
 
-ProcessQueuedRequests() -->> ProcessQueuedRequests() : wait
+ProcessQueuedRequests() --\>\> ProcessQueuedRequests() : wait
 client stubs -x server stubs : store file3 refused
 client stubs -x server stubs : delete file4 refused
-server stubs ->> client stubs : store file1 done
-file lock manager ->> file lock manager : *release lock file1
-server stubs ->> client stubs : store file2 done
-file lock manager ->> file lock manager : *release lock file2
-file lock manager -->> server stubs : *signal last of the locks released
-server stubs -->> ProcessQueuedRequests() : *signal to drain async queue
-ProcessQueuedRequests() -->> ProcessQueuedRequests() : now it knows it can start draining
+server stubs -\>\> client stubs : store file1 done
+file lock manager -\>\> file lock manager : *release lock file1
+server stubs -\>\> client stubs : store file2 done
+file lock manager -\>\> file lock manager : *release lock file2
+file lock manager --\>\> server stubs : *signal last of the locks released
+server stubs --\>\> ProcessQueuedRequests() : *signal to drain async queue
+ProcessQueuedRequests() --\>\> ProcessQueuedRequests() : now it knows it can start draining
 
-ProcessQueuedRequests() -->> server stubs : *signal to resume operations
-ProcessQueuedRequests() -->> completion queue : signal to start draining
+ProcessQueuedRequests() --\>\> server stubs : *signal to resume operations
+ProcessQueuedRequests() --\>\> completion queue : signal to start draining
 loop
-completion queue ->> client stubs : invoke callbacklist() for N registered clients
+completion queue -\>\> client stubs : invoke callbacklist() for N registered clients
 end;
-ProcessQueuedRequests() -->> ProcessQueuedRequests() : sleep for {ms} ms
+ProcessQueuedRequests() --\>\> ProcessQueuedRequests() : sleep for {ms} ms
 ```
 
 
