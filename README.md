@@ -1,3 +1,9 @@
+```mermaid
+flowchart LR
+```
+
+
+
 # Project 4 Readme
 >A weakly consistent distributed file system.
 > File system operations are based on synchronous gRPC (remote procedure call) routines, while file system synchronization is periodically performed as an asynchronous gRPC routine. 
