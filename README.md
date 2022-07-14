@@ -50,6 +50,7 @@ List_server_stub:::__server
 Delete_server_stub:::__server
 Stat_server_stub:::__server
 end
+```
 
 subgraph client stubs
    subgraph c1[Fetch]
